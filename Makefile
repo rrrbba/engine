@@ -1,6 +1,6 @@
 #Rule 1
 build:
-	g++ -Wall -std=c++17 src/*.cpp -o gameengine -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -lm;
+	g++ -Wall -std=c++17 src/*.cpp -o gameengine -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -llua -lm;
 
 #Rule 2
 run:
