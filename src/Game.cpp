@@ -14,10 +14,13 @@ Game::~Game() {
 
 //   class::[scope]    
 void Game::Initialize() {
+    //Initialize SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
        std::cerr <<"Error initializing SDL" << std::endl;
        return; 
     } 
+
+    //Create an SDL window
     SDL_Window* window = SDL_CreateWindow(
         NULL, 
         SDL_WINDOWPOS_CENTERED, 
@@ -30,7 +33,13 @@ void Game::Initialize() {
         std::cerr <<"Error creating SDL window" << std::endl;
         return;
     }
-    SDL
+
+    //Create SDL render
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    if (!renderer) {
+        std::cerr <<"Error creating SDL renderer" << std::endl;
+        return;
+    }
 }
 
 void Game::Run() {
@@ -50,5 +59,6 @@ void Game::Render() {
 }
 
 void Game::Destroy() {
-
+    //Destroy window, render and SDL
+    
 }
