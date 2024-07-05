@@ -2,7 +2,7 @@
 #ifndef GAME_H
 #define GAME_H
 //above two lines and last line wraps header file in protection guard. Keeps preprocessor from adding multiple files of this. Makes it only include it once
-
+// cane also use #pragma once
 
 class Game {
 
