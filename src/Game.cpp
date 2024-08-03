@@ -4,11 +4,12 @@
 
 //class::contructor method()
 Game::Game() {
+    isRunning = false;
     std::cout << "Game contructor called!" << std::endl;
 }
 
 //class::destructor method()
-Game::~Game() {
+Game::Game() {
     std::cout << "Game destructor called!" << std::endl;
 }
 
@@ -21,7 +22,7 @@ void Game::Initialize() {
     } 
 
     //Create an SDL window
-    SDL_Window* window = SDL_CreateWindow(
+    window = SDL_CreateWindow(
         NULL, 
         SDL_WINDOWPOS_CENTERED, 
         SDL_WINDOWPOS_CENTERED,
@@ -35,18 +36,32 @@ void Game::Initialize() {
     }
 
     //Create SDL render
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, 0);
     if (!renderer) {
         std::cerr <<"Error creating SDL renderer" << std::endl;
         return;
     }
-}
 
-void Game::Run() {
-
+    isRunning = true;
 }
 
 void Game::ProcessInput() {
+    //Press ESC to exit game loop
+    //Check if something has been pressed every frame of animation
+    //Purestruct 
+    SDL_Event sdlEvent;
+    while (SDL_PollEvent(&sdlEvent)) { //while an event is pending, process that event
+        switch (sdlEvent.type) {
+            case SDL_QUIT:
+                isRunning = false;
+                break;
+            case SDL_KEYDOWN:
+                if (sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
+                    isRunning = false;
+                }
+                break;
+    }; //& shows it's a reference(gets the address in memory of the struct)
+
 
 }
 
@@ -58,7 +73,18 @@ void Game::Render() {
 
 }
 
+void Game::Run() {
+    while(isRunning) {
+        //Methods of game class: 
+        ProcessInput();
+        Update();
+        Render();
+    }
+}
+
 void Game::Destroy() {
-    //Destroy window, render and SDL
-    
+    //Destroy render, window and close SDL (in inverse order of how they're created)
+    SDL_DestroyRenderer(renderer);
+    SDL_DESTROYWINDOW(window);
+    SDL_Quit();
 }
